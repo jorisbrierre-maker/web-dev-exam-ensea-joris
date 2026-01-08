@@ -48,6 +48,7 @@ export const renderRecipeCard = (recipe) => {
 	}
 	// TODO: Ajouter l'image de couverture de la recette
 	// TODO: Actuellement une image statique est utilisée
+	// TODO: Remplacer "NOM DE LA RECETTE", "MIN DYNAMIQUE", "LISTE DYNAMIQUE ICI !" et "INSTRUCTIONS DYNAMIQUES ICI !" par les données dynamiques
 
 	return `
 		<div class="col-md-6 col-lg-4">
