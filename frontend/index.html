@@ -1,298 +1,217 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Gestionnaire de Recettes</title>
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-			rel="stylesheet"
-			integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-			crossorigin="anonymous"
-		/>
-		<link rel="shortcut icon" href="./favicon.png" type="image/png" />
-	</head>
-	<body class="bg-light">
-		<!-- ============================================ -->
-		<!-- NAVIGATION BAR -->
-		<!-- ============================================ -->
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="index.html">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						fill="currentColor"
-						class="bi bi-book me-2"
-						viewBox="0 0 16 16"
-					>
-						<path
-							d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"
-						/>
-					</svg>
-					Mes Recettes
-				</a>
-				<button
-					class="navbar-toggler"
-					type="button"
-					data-bs-toggle="collapse"
-					data-bs-target="#navbarNav"
-					aria-controls="navbarNav"
-					aria-expanded="false"
-					aria-label="Toggle navigation"
-				>
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav ms-auto">
-						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="index.html">
-								Accueil
-							</a>
-						</li>
-						<li class="nav-item">
-							<button
-								class="btn btn-success ms-2"
-								data-bs-toggle="modal"
-								data-bs-target="#addRecipeModal"
-							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="16"
-									height="16"
-									fill="currentColor"
-									class="bi bi-plus-circle me-1"
-									viewBox="0 0 16 16"
-								>
-									<path
-										d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
-									/>
-									<path
-										d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
-									/>
-								</svg>
-								Ajouter une recette
-							</button>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
 
-		<!-- ============================================ -->
-		<!-- MAIN CONTENT -->
-		<!-- ============================================ -->
-		<main class="container">
-			<!-- Header Section -->
-			<div class="row mb-4">
-				<div class="col-12">
-					<h1 class="display-4 text-center mb-3">Livre de Recettes</h1>
-					<p class="lead text-center text-muted">
-						Découvrez et gérez vos recettes préférées
-					</p>
-				</div>
-			</div>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Gestionnaire de Recettes</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+	<link rel="shortcut icon" href="./favicon.png" type="image/png" />
+</head>
 
-			<!-- Recipes Grid -->
-			<div class="row g-4" id="recipes-container">
-				<!-- Les recettes seront affichées ici dynamiquement par JavaScript -->
-				<div class="col-12">
-					<div
-						class="d-flex justify-content-center align-items-center"
-						style="min-height: 200px"
-					>
-						<div class="spinner-border text-primary" role="status">
-							<span class="visually-hidden">Chargement...</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</main>
-
-		<!-- ============================================ -->
-		<!-- MODAL - AJOUTER UNE RECETTE -->
-		<!-- ============================================ -->
-		<div
-			class="modal fade"
-			id="addRecipeModal"
-			tabindex="-1"
-			aria-labelledby="addRecipeModalLabel"
-			aria-hidden="true"
-		>
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<!-- Modal Header -->
-					<div class="modal-header bg-primary text-white">
-						<h5 class="modal-title" id="addRecipeModalLabel">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="20"
-								height="20"
-								fill="currentColor"
-								class="bi bi-plus-circle me-2"
-								viewBox="0 0 16 16"
-							>
-								<path
-									d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
-								/>
-								<path
-									d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
-								/>
-							</svg>
-							Ajouter une nouvelle recette
-						</h5>
-						<button
-							type="button"
-							class="btn-close btn-close-white"
-							data-bs-dismiss="modal"
-							aria-label="Close"
-						></button>
-					</div>
-
-					<!-- Modal Body -->
-					<div class="modal-body">
-						<form id="addRecipeForm">
-							<!-- Nom de la recette -->
-							<div class="mb-3">
-								<label for="recipeName" class="form-label fw-bold">
-									Nom de la recette
-									<span class="text-danger">*</span>
-								</label>
-								<input
-									type="text"
-									class="form-control"
-									id="recipeName"
-									name="name"
-									placeholder="Ex: Spaghetti Carbonara"
-									required
-								/>
-							</div>
-
-							<!-- Ingrédients -->
-							<div class="mb-3">
-								<label for="recipeIngredients" class="form-label fw-bold">
-									Ingrédients
-									<span class="text-danger">*</span>
-								</label>
-								<textarea
-									class="form-control"
-									id="recipeIngredients"
-									name="ingredients"
-									rows="4"
-									placeholder="Ex: 
-- 400g de pâtes
-- 200g de lardons
-- 3 œufs
-- 100g de parmesan râpé"
-									required
-								></textarea>
-								<small class="form-text text-muted">
-									Listez les ingrédients, un par ligne
-								</small>
-							</div>
-
-							<!-- Instructions -->
-							<div class="mb-3">
-								<label for="recipeInstructions" class="form-label fw-bold">
-									Instructions
-									<span class="text-danger">*</span>
-								</label>
-								<textarea
-									class="form-control"
-									id="recipeInstructions"
-									name="instructions"
-									rows="6"
-									placeholder="Décrivez les étapes de préparation..."
-									required
-								></textarea>
-							</div>
-
-							<!-- Temps de préparation -->
-							<div class="mb-3">
-								<label for="recipePrepTime" class="form-label fw-bold">
-									Temps de préparation (minutes)
-									<span class="text-danger">*</span>
-								</label>
-								<input
-									type="number"
-									class="form-control"
-									id="recipePrepTime"
-									name="prepTime"
-									min="1"
-									max="999"
-									placeholder="Ex: 30"
-									required
-								/>
-							</div>
-
-							<!-- Temps de préparation -->
-							<div class="mb-3">
-								<label for="imageUrl" class="form-label fw-bold">
-									Image (Optionnel)
-								</label>
-								<input
-									type="text"
-									class="form-control"
-									id="imageUrl"
-									name="imageUrl"
-									placeholder="Ex: https://example.com/image.jpg"
-								/>
-							</div>
-
-							<!-- Boutons du formulaire -->
-							<div class="d-flex justify-content-end gap-2">
-								<button
-									type="button"
-									class="btn btn-secondary"
-									data-bs-dismiss="modal"
-								>
-									Annuler
-								</button>
-								<button type="submit" class="btn btn-primary">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="16"
-										height="16"
-										fill="currentColor"
-										class="bi bi-check-circle me-1"
-										viewBox="0 0 16 16"
-									>
+<body class="bg-light">
+	<!-- ============================================ -->
+	<!-- NAVIGATION BAR -->
+	<!-- ============================================ -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="index.html">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+					class="bi bi-book me-2" viewBox="0 0 16 16">
+					<path
+						d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783" />
+				</svg>
+				Mes Recettes
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto align-items-center">
+					<li class="nav-item me-3">
+						<form class="d-flex" id="searchForm">
+							<div class="input-group">
+								<input class="form-control" type="search" placeholder="Rechercher..."
+									aria-label="Search" id="searchInput" />
+								<button class="btn btn-outline-light" type="submit">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+										class="bi bi-search" viewBox="0 0 16 16">
 										<path
-											d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
-										/>
-										<path
-											d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"
-										/>
+											d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
 									</svg>
-									Ajouter la recette
 								</button>
 							</div>
 						</form>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="index.html">
+							Accueil
+						</a>
+					</li>
+					<li class="nav-item">
+						<button class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#addRecipeModal">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+								class="bi bi-plus-circle me-1" viewBox="0 0 16 16">
+								<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+								<path
+									d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+							</svg>
+							Ajouter une recette
+						</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- ============================================ -->
+	<!-- MAIN CONTENT -->
+	<!-- ============================================ -->
+	<main class="container">
+		<!-- Header Section -->
+		<div class="row mb-4">
+			<div class="col-12">
+				<h1 class="display-4 text-center mb-3">Livre de Recettes</h1>
+				<p class="lead text-center text-muted">
+					Découvrez et gérez vos recettes préférées
+				</p>
+			</div>
+		</div>
+
+		<!-- Recipes Grid -->
+		<div class="row g-4" id="recipes-container">
+			<!-- Les recettes seront affichées ici dynamiquement par JavaScript -->
+			<div class="col-12">
+				<div class="d-flex justify-content-center align-items-center" style="min-height: 200px">
+					<div class="spinner-border text-primary" role="status">
+						<span class="visually-hidden">Chargement...</span>
 					</div>
 				</div>
 			</div>
 		</div>
+	</main>
 
-		<!-- ============================================ -->
-		<!-- FOOTER -->
-		<!-- ============================================ -->
-		<footer class="mt-5 py-4 bg-dark text-white-50">
-			<div class="container text-center">
-				<p class="mb-0">
-					&copy; 2025 Gestionnaire de Recettes - Examen Pratique Web Development
-				</p>
+	<!-- ============================================ -->
+	<!-- MODAL - AJOUTER UNE RECETTE -->
+	<!-- ============================================ -->
+	<div class="modal fade" id="addRecipeModal" tabindex="-1" aria-labelledby="addRecipeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header bg-primary text-white">
+					<h5 class="modal-title" id="addRecipeModalLabel">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+							class="bi bi-plus-circle me-2" viewBox="0 0 16 16">
+							<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+							<path
+								d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+						</svg>
+						Ajouter une nouvelle recette
+					</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+
+				<!-- Modal Body -->
+				<div class="modal-body">
+					<form id="addRecipeForm">
+						<!-- Nom de la recette -->
+						<div class="mb-3">
+							<label for="recipeName" class="form-label fw-bold">
+								Nom de la recette
+								<span class="text-danger">*</span>
+							</label>
+							<input type="text" class="form-control" id="recipeName" name="name"
+								placeholder="Ex: Spaghetti Carbonara" required />
+						</div>
+
+						<!-- Ingrédients -->
+						<div class="mb-3">
+							<label for="recipeIngredients" class="form-label fw-bold">
+								Ingrédients
+								<span class="text-danger">*</span>
+							</label>
+							<textarea class="form-control" id="recipeIngredients" name="ingredients" rows="4"
+								placeholder="Ex: 
+- 400g de pâtes
+- 200g de lardons
+- 3 œufs
+- 100g de parmesan râpé" required></textarea>
+							<small class="form-text text-muted">
+								Listez les ingrédients, un par ligne
+							</small>
+						</div>
+
+						<!-- Instructions -->
+						<div class="mb-3">
+							<label for="recipeInstructions" class="form-label fw-bold">
+								Instructions
+								<span class="text-danger">*</span>
+							</label>
+							<textarea class="form-control" id="recipeInstructions" name="instructions" rows="6"
+								placeholder="Décrivez les étapes de préparation..." required></textarea>
+						</div>
+
+						<!-- Temps de préparation -->
+						<div class="mb-3">
+							<label for="recipePrepTime" class="form-label fw-bold">
+								Temps de préparation (minutes)
+								<span class="text-danger">*</span>
+							</label>
+							<input type="number" class="form-control" id="recipePrepTime" name="prepTime" min="1"
+								max="999" placeholder="Ex: 30" required />
+						</div>
+
+						<!-- Temps de préparation -->
+						<div class="mb-3">
+							<label for="imageUrl" class="form-label fw-bold">
+								Image (Optionnel)
+							</label>
+							<input type="text" class="form-control" id="imageUrl" name="imageUrl"
+								placeholder="Ex: https://example.com/image.jpg" />
+						</div>
+
+						<!-- Boutons du formulaire -->
+						<div class="d-flex justify-content-end gap-2">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+								Annuler
+							</button>
+							<button type="submit" class="btn btn-primary">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+									class="bi bi-check-circle me-1" viewBox="0 0 16 16">
+									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+									<path
+										d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
+								</svg>
+								Ajouter la recette
+							</button>
+						</div>
+					</form>
+				</div>
 			</div>
-		</footer>
+		</div>
+	</div>
 
-		<!-- ============================================ -->
-		<!-- SCRIPTS -->
-		<!-- ============================================ -->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-			crossorigin="anonymous"
-		></script>
-		<script type="module" src="./js/main.js"></script>
-	</body>
+	<!-- ============================================ -->
+	<!-- FOOTER -->
+	<!-- ============================================ -->
+	<footer class="mt-5 py-4 bg-dark text-white-50">
+		<div class="container text-center">
+			<p class="mb-0">
+				&copy; 2025 Gestionnaire de Recettes - Examen Pratique Web Development
+			</p>
+		</div>
+	</footer>
+
+	<!-- ============================================ -->
+	<!-- SCRIPTS -->
+	<!-- ============================================ -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+		crossorigin="anonymous"></script>
+	<script type="module" src="./js/main.js"></script>
+</body>
+
 </html>

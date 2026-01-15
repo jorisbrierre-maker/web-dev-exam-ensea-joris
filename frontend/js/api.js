@@ -50,7 +50,6 @@ export const getAllRecipes = async () => {
 // ============================================
 // CREATE A NEW RECIPE
 // ============================================
-// TODO: Compléter cette fonction pour créer une nouvelle recette
 
 /**
  * Crée une nouvelle recette via l'API
@@ -59,24 +58,23 @@ export const getAllRecipes = async () => {
  */
 export const createRecipe = async (recipeData) => {
 	try {
-		// TODO 1: Créer l'objet de configuration pour fetch
-		// Il doit contenir:
-		// - method: 'POST'
-		// - headers: { 'Content-Type': 'application/json' }
-		// - body: JSON.stringify(recipeData)
+		const options = {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(recipeData),
+		}
 
-		// TODO: Compléter l'objet options ici
-		const options = {}
+		console.log("Envoi de la recette:", recipeData)
 
-		// TODO 2: Faire la requête POST avec fetch(API_BASE_URL, options)
-		const response = null // TODO: appeler fetch avec l'URL et les options
+		const response = await fetch(API_BASE_URL, options)
 
-		// TODO 3: Vérifier que la requête a réussi (response.ok)
-		// Si pas ok, throw new Error avec le status
+		if (!response.ok) {
+			throw new Error(`Erreur HTTP: ${response.status}`)
+		}
 
-		// TODO 4: Extraire et retourner les données JSON
-		const newRecipe = null // TODO: appeler response.json()
-
+		const newRecipe = await response.json()
 		return newRecipe
 	} catch (error) {
 		console.error("Erreur lors de la création de la recette:", error)
@@ -84,16 +82,12 @@ export const createRecipe = async (recipeData) => {
 	}
 }
 
+// ============================================
+// GET ONE RECIPE
+// ============================================
+
 export const getOneRecipe = async (recipeId) => {
 	try {
-		console.log("API recipeData:", recipeId)
-		// TODO 1: Créer l'objet de configuration pour fetch
-		// Il doit contenir:
-		// - method: 'GET'
-		// - headers: { 'Content-Type': 'application/json' }
-		// - recipeId: recipeId dans l'URL
-
-		// TODO: Compléter l'objet options ici
 		const options = {
 			method: "GET",
 			headers: {
@@ -102,33 +96,26 @@ export const getOneRecipe = async (recipeId) => {
 		}
 		const url = `${API_BASE_URL}/${recipeId}`
 
-		// TODO 2: Faire la requête GET avec fetch(API_BASE_URL, options)
-		const response = await fetch(url, options) // TODO: appeler fetch avec l'URL et les options
-		console.log("API response:", response)
+		const response = await fetch(url, options)
 
-		// TODO 3: Vérifier que la requête a réussi (response.ok)
-		// Si pas ok, throw new Error avec le status
+		if (!response.ok) {
+			throw new Error(`Erreur HTTP: ${response.status}`)
+		}
 
-		// TODO 4: Extraire et retourner les données JSON
-		const recipe = null // TODO: appeler response.json()
-
+		const recipe = await response.json()
 		return recipe
 	} catch (error) {
-		console.error("Erreur lors de la création de la recette:", error)
+		console.error("Erreur lors de la récupération de la recette:", error)
 		throw error
 	}
 }
 
+// ============================================
+// DELETE ONE RECIPE
+// ============================================
+
 export const deletOneRecipe = async (recipeId) => {
 	try {
-		console.log("API recipeData:", recipeId)
-		// TODO 1: Créer l'objet de configuration pour fetch
-		// Il doit contenir:
-		// - method: 'DELETE'
-		// - headers: { 'Content-Type': 'application/json' }
-		// - recipeId: recipeId dans l'URL
-
-		// TODO: Compléter l'objet options ici
 		const options = {
 			method: "DELETE",
 			headers: {
@@ -137,19 +124,44 @@ export const deletOneRecipe = async (recipeId) => {
 		}
 		const url = `${API_BASE_URL}/${recipeId}`
 
-		// TODO 2: Faire la requête GET avec fetch(API_BASE_URL, options)
-		const response = await fetch(url, options) // TODO: appeler fetch avec l'URL et les options
-		console.log("API response:", response)
+		const response = await fetch(url, options)
 
-		// TODO 3: Vérifier que la requête a réussi (response.ok)
-		// Si pas ok, throw new Error avec le status
+		if (!response.ok) {
+			throw new Error(`Erreur HTTP: ${response.status}`)
+		}
 
-		// TODO 4: Extraire et retourner les données JSON
-		const recipe = null // TODO: appeler response.json()
-
-		return recipe
+		const result = await response.json()
+		return result
 	} catch (error) {
-		console.error("Erreur lors de la création de la recette:", error)
+		console.error("Erreur lors de la suppression de la recette:", error)
+		throw error
+	}
+}
+
+// ============================================
+// SEARCH RECIPES
+// ============================================
+
+export const searchRecipes = async (query) => {
+	try {
+		const options = {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}
+		const url = `${API_BASE_URL}/search?search=${encodeURIComponent(query)}`
+
+		const response = await fetch(url, options)
+
+		if (!response.ok) {
+			throw new Error(`Erreur HTTP: ${response.status}`)
+		}
+
+		const recipes = await response.json()
+		return recipes
+	} catch (error) {
+		console.error("Erreur lors de la recherche des recettes:", error)
 		throw error
 	}
 }

@@ -390,3 +390,41 @@ Vous avez toutes les connaissances nécessaires pour réussir cet examen. Faites
 ## Affichage des recettes
 
 ![Home Page](./dynamic-home.png)
+
+---
+
+## 👨‍🏫 Guide de Validation pour l'Enseignant
+
+Ce projet a été complété au-delà des attentes initiales. En plus du Backend (API REST), le Frontend a été entièrement implémenté et rendu fonctionnel pour permettre une validation visuelle et interactive.
+
+### Pré-requis
+1.  Ouvrir un terminal dans le dossier `backend`.
+2.  Installer les dépendances : `npm install`
+3.  Lancer le serveur : `npm run dev`
+4.  Ouvrir le fichier `frontend/index.html` dans un navigateur moderne.
+
+### Procédure de Test Complète
+
+#### 1. Affichage (GET All)
+*   **Vérification** : La page d'accueil affiche la liste des recettes avec images, titres et temps de préparation.
+*   **Backend** : `GET /api/recipes`
+
+#### 2. Détail (GET One)
+*   **Action** : Cliquer sur "Voir la recette" d'une carte.
+*   **Vérification** : La page de détail s'affiche avec la liste complète des ingrédients et les instructions.
+*   **Backend** : `GET /api/recipes/:id`
+
+#### 3. Création (POST)
+*   **Action** : Cliquer sur "Ajouter une recette" (bouton vert en haut), remplir le formulaire et valider.
+*   **Vérification** : La modale se ferme, un message de succès s'affiche, et la nouvelle recette apparaît dans la liste.
+*   **Backend** : `POST /api/recipes`
+
+#### 4. Suppression (DELETE)
+*   **Action** : Aller sur le détail de la recette créée, cliquer sur "Supprimer cette recette" (bouton rouge en bas) et confirmer.
+*   **Vérification** : Redirection vers l'accueil, la recette a disparu.
+*   **Backend** : `DELETE /api/recipes/:id`
+
+#### 5. Recherche (BONUS Implémenté)
+*   **Action** : Utiliser la barre de recherche dans le menu navigation (ex: taper "tarte") et valider.
+*   **Vérification** : La liste se met à jour pour n'afficher que les résultats correspondants.
+*   **Backend** : `GET /api/recipes/search?search=...`
